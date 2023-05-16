@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Label, Button } from './ContactForm.styled';
+import { BiUserPlus } from 'react-icons/bi';
+import css from './ContactForm.module.css';
 
 export default function ContactForm({ onSubmit }) {
   const [name, setName] = useState('');
@@ -21,57 +22,56 @@ export default function ContactForm({ onSubmit }) {
       default:
         return;
     }
-    // const { name, value } = event.currentTarget; !!!WAS
-    // this.setState({ [name]: value });
   };
 
   const reset = () => {
     setName('');
     setNumber('');
-    // this.setState({ name: '', number: '' }); !!!WAS
   };
 
   const handleSubmit = event => {
     event.preventDefault();
     onSubmit({ name, number });
+
     reset();
-    // event.preventDefault(); !!!WAS
-    // <ContactForm onSubmit={this.addContact} => получение данных в апп
-    // this.props.onSubmit(this.state);
-    // this.reset();
   };
 
-  // render() {!!!WAS
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label>
-        Name
+    <form className={css.form} onSubmit={handleSubmit}>
+      <label className={css.label}>
+        <b className={css.labelText}>Name</b>
         <input
+          className={css.input}
           type="text"
           name="name"
-          placeholder="Enter name"
           value={name}
-          onChange={handleChange}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          placeholder="Enter name"
+          onChange={handleChange}
         />
-      </Label>
-      <Label>
-        Number
+      </label>
+      <label className={css.label}>
+        <b className={css.labelText}>Number</b>
         <input
+          className={css.input}
           type="tel"
           name="number"
-          placeholder="Enter phone number"
           value={number}
-          onChange={handleChange}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          placeholder="Enter phone number"
+          onChange={handleChange}
         />
-      </Label>
-      <Button type="submit">Add contact</Button>
-    </Form>
+      </label>
+
+      <button className={css.btnAdd} type="submit">
+        <BiUserPlus className={css.btnAddIcon} size={25} />
+        <span className={css.btnAddText}>Add contact</span>
+      </button>
+    </form>
   );
 }
 
