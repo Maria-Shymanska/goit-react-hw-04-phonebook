@@ -23,7 +23,7 @@ export default function App() {
   }, [contacts]);
 
   const addContact = ({ name, number }) => {
-    const newContacts = {
+    const contact = {
       name,
       number,
       id: nanoid(),
@@ -36,7 +36,7 @@ export default function App() {
     ) {
       return alert(`${name} is already in contacts!`);
     }
-    setContacts([newContacts, ...contacts]);
+    setContacts(prevState => [{ ...contact }, ...prevState]);
   };
 
   const onChangeFilter = event => {
