@@ -23,7 +23,7 @@ export default function App() {
   }, [contacts]);
 
   const addContact = ({ name, number }) => {
-    const contact = {
+    const newContacts = {
       name,
       number,
       id: nanoid(),
@@ -36,7 +36,7 @@ export default function App() {
     ) {
       return alert(`${name} is already in contacts!`);
     }
-    return setContacts([contact, ...contacts]);
+    setContacts([newContacts, ...contacts]);
   };
 
   const onChangeFilter = event => {
@@ -49,7 +49,7 @@ export default function App() {
     });
   };
 
-  const DeleteContact = contactId => {
+  const deleteContact = contactId => {
     setContacts(prevState =>
       prevState.filter(contact => contact.id !== contactId)
     );
@@ -64,7 +64,7 @@ export default function App() {
         <Filter filter={filter} onChange={onChangeFilter} />
         <ContactList
           contacts={currentContacts()}
-          onDeleteContact={DeleteContact}
+          onDeleteContact={deleteContact}
         />
       </div>
     </>
